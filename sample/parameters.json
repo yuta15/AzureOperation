@@ -1,0 +1,87 @@
+{
+    "resource_group": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tasgs": {}
+        }
+    ],
+    "virtual_network": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tasgs": "",
+            "virtual_network_name": "",
+            "address_prefixes": [],
+            "dns_servers": "",
+            "subnets": [
+                {
+                    "subnet_name": "",
+                    "address_prefix": ""
+                }
+            ]
+        }
+    ],
+    "network_security_group": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tasgs": "",
+            "network_security_group_name": "",
+            "security_group_rule": [
+                {
+                    "name": "",
+                    "priority": "",
+                    "direction": "",
+                    "protocol": "",
+                    "access": "",
+                    "description": "",
+                    "src_addresses": "",
+                    "src_ports": "",
+                    "dst_addresses": "",
+                    "dst_ports": ""
+                }
+            ]
+        }
+    ],
+    "route_table": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tasgs": "",
+            "route_table_name": "",
+            "routes": [
+                {
+                    "name": "",
+                    "address_prefix": "",
+                    "next_hop_type": "",
+                    "next_hop_ip_address": ""
+                }
+            ]
+        }
+    ],
+    "storage_account": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tasgs": "",
+            "storage_account_name": "",
+            "sku": "",
+            "access_tier": "",
+            "public_network_access": "",
+            "network_rule_set": {
+                "allow_vnet_name": [],
+                "allow_ip": []
+            },
+            "allow_blob_public_access": "",
+            "enable_https_traffic_only": "",
+            "minimum_tls_version": ""
+        }
+    ],
+    "virtual_machine": [
+        {
+
+        }
+    ],
+    "private_link": [{}]
+}
