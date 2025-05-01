@@ -1,23 +1,25 @@
 {
     "resource_group": [
         {
-            "resource_group_name": "",
-            "location": "",
-            "tasgs": {}
+            "resource_group_name": "test-rg",
+            "location": "japaneast",
+            "tags": {"name": "test"}
         }
     ],
     "virtual_network": [
         {
-            "resource_group_name": "",
-            "location": "",
-            "tasgs": "",
-            "virtual_network_name": "",
-            "address_prefixes": [],
-            "dns_servers": "",
+            "resource_group_name": "test-rg",
+            "location": "japaneast",
+            "tags": {"name": "test"},
+            "virtual_network_name": "vnet1",
+            "address_prefixes": [
+                "10.0.0.0/16"
+            ],
+            "dns_servers": [],
             "subnets": [
                 {
-                    "subnet_name": "",
-                    "address_prefix": ""
+                    "name": "subnet1",
+                    "address_prefix": "10.0.0.0/24"
                 }
             ]
         }
@@ -26,7 +28,7 @@
         {
             "resource_group_name": "",
             "location": "",
-            "tasgs": "",
+            "tags": "",
             "network_security_group_name": "",
             "security_group_rule": [
                 {
@@ -48,7 +50,7 @@
         {
             "resource_group_name": "",
             "location": "",
-            "tasgs": "",
+            "tags": "",
             "route_table_name": "",
             "routes": [
                 {
@@ -64,7 +66,7 @@
         {
             "resource_group_name": "",
             "location": "",
-            "tasgs": "",
+            "tags": "",
             "storage_account_name": "",
             "sku": "",
             "access_tier": "",
