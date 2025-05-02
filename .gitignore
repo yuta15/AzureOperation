@@ -8,6 +8,7 @@ __pycache__/
 *.so
 *.env
 # Distribution / packaging
+.pytest_cache
 .Python
 build/
 develop-eggs/

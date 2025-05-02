@@ -30,7 +30,7 @@
             "location": "",
             "tags": "",
             "network_security_group_name": "",
-            "security_group_rule": [
+            "security_rules": [
                 {
                     "name": "",
                     "priority": "",
@@ -38,10 +38,14 @@
                     "protocol": "",
                     "access": "",
                     "description": "",
-                    "src_addresses": "",
-                    "src_ports": "",
-                    "dst_addresses": "",
-                    "dst_ports": ""
+                    "source_address_prefix": "",
+                    "source_address_prefixes": [],
+                    "destination_address_prefix": "",
+                    "destination_address_prefixes": [],
+                    "source_port_range": "",
+                    "source_port_ranges": [],
+                    "destination_port_range": "",
+                    "destination_port_ranges": []
                 }
             ]
         }
