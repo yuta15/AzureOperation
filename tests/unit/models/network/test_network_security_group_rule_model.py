@@ -202,7 +202,10 @@ def test_nsg_rule_failure_by_name(load_test_input_data, name):
     NSGモデルの異常系テスト
     NSG名が不正な場合のチェック
     """
-    pass
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['name'] = name
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
 
 
 @pytest.mark.parametrize(
@@ -210,7 +213,6 @@ def test_nsg_rule_failure_by_name(load_test_input_data, name):
     [
         99,
         65001,
-        '1000',
     ]
 )
 def test_nsg_rule_failure_by_priority(load_test_input_data, priority):
@@ -218,7 +220,10 @@ def test_nsg_rule_failure_by_priority(load_test_input_data, priority):
     NSGモデルの異常系テスト
     NSG名が不正な場合のチェック
     """
-    pass
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['priority'] = priority
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
 
 
 @pytest.mark.parametrize(
@@ -228,11 +233,104 @@ def test_nsg_rule_failure_by_priority(load_test_input_data, priority):
         'Out',
     ]
 )
-def test_nsg_rule_failure_by_priority(load_test_input_data, direction):
+def test_nsg_rule_failure_by_direction(load_test_input_data, direction):
     """
     NSGモデルの異常系テスト
     NSG名が不正な場合のチェック
     """
-    pass
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['direction'] = direction
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
+
+
+@pytest.mark.parametrize(
+    ['source_address_prefix', 'destination_address_prefix'],
+    [
+        [' ',' '],
+        ['192.168.1.0.0/24','192.300.2.0/24'],
+        ['192.168.1.1/24','192.168.2.2/24'],
+    ]
+)
+def test_nsg_rule_failure_by_address(load_test_input_data, source_address_prefix, destination_address_prefix):
+    """
+    NSGモデルの異常系テスト
+    NSG名が不正な場合のチェック
+    """
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['source_address_prefix'] = source_address_prefix
+    nsg_rule['destination_address_prefix'] = destination_address_prefix
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
+
+
+@pytest.mark.parametrize(
+    ['source_address_prefixes', 'destination_address_prefixes'],
+    [
+        [['*','*'], ['*','*']],
+        [['192.168.1.0.0/24','192.300.2.0/24'],['192.168.1.0.0/24','192.300.2.0/24']],
+        [['192.168.1.1/24','192.168.2.2/24'],['192.168.1.1/24','192.168.2.2/24']]
+    ]
+)
+def test_nsg_rule_failure_by_addresses(load_test_input_data, source_address_prefixes, destination_address_prefixes):
+    """
+    NSGモデルの異常系テスト
+    NSG名が不正な場合のチェック
+    """
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['source_address_prefixes'] = source_address_prefixes
+    nsg_rule['destination_address_prefixes'] = destination_address_prefixes
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
+
+
+@pytest.mark.parametrize(
+    ['source_port_range', 'destination_port_range'],
+    [
+        ['0', '0'],
+        [0, 0],
+        ['65536', '65536'],
+        ['1-100-200', '1-100-200'],
+        ['1-100', '1-100-200'],
+        ['1-100', 0],
+        ['1-100', -443],
+        ['1-100', 1.22],
+    ]
+)
+def test_nsg_rule_failure_by_port(load_test_input_data, source_port_range, destination_port_range):
+    """
+    NSGモデルの異常系テスト
+    NSG名が不正な場合のチェック
+    """
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['source_port_range'] = source_port_range
+    nsg_rule['destination_port_range'] = destination_port_range
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
+
+
+@pytest.mark.parametrize(
+    ['source_port_ranges', 'destination_port_ranges'],
+    [
+        [['0', '0'], ['0', '0']],
+        [[0, 0],[0, 0]],
+        [['65536', '65536'], ['65536', '65536']],
+        [['443', '1002-65536'],['443', '1002-65535']],
+        [['1-100', '1-100-200'], ['443', '1002-65535']],
+        [[80, 20, 22], [0, 100, 200]],
+        [['1-100', -443],[80]],
+        [['1-100', 1.22],[443]]
+    ]
+)
+def test_nsg_rule_failure_by_ports(load_test_input_data, source_port_ranges, destination_port_ranges):
+    """
+    NSGモデルの異常系テスト
+    NSG名が不正な場合のチェック
+    """
+    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule['source_port_ranges'] = source_port_ranges
+    nsg_rule['destination_port_ranges'] = destination_port_ranges
+    with pytest.raises(ValueError):
+        NetworkSecurityGroupRuleModel(**nsg_rule)
 
 

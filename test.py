@@ -1,5 +1,6 @@
-from ipaddress import ip_address, IPv4Address, IPv4Network
-
-test = '192.168.1.1'
-
-print(IPv4Address(test))
+a = -10
+print(str(a))
+if '-' in str(a):
+    print('yes')
+else:
+    print('no')

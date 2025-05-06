@@ -18,6 +18,20 @@ def port_validator(port_number:str) -> str:
     """
     to_validate = []
     validated_port = []
+    
+    # 引数の型チェック
+    # int型の場合はstr型に変換
+    # str型の場合はそのまま使用
+    # それ以外の型の場合はValueErrorを投げる
+    if isinstance(port_number, int):
+        port_number = str(port_number)
+    elif not isinstance(port_number, str):
+        raise ValueError(
+            f"""
+            {port_number}は不正な値です。
+            port番号はint型へ変換可能なstr型もしくは, int-intのstr型である必要があります。
+            """
+        )
 
     if '-' in port_number:
         # rangeの場合の処理

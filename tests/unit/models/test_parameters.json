@@ -27,10 +27,10 @@
     ],
     "network_security_group": [
         {
-            "resource_group_name": "",
-            "location": "",
-            "tags": "",
-            "network_security_group_name": "",
+            "resource_group_name": "test-rg",
+            "location": "japaneast",
+            "tags": {"name": "test"},
+            "network_security_group_name": "test-nsg",
             "security_rules": [
                 {
                     "name": "test-1",
