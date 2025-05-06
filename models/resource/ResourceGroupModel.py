@@ -12,11 +12,10 @@ class ResourceGroupModel(ResourceBaseModel):
         tags: dict | None = None
         resource_group_name: str | None = None
     """
-    resource_group_name: str | None = Field(
+    resource_group_name: str = Field(
         max_length=64, 
         min_length=3, 
         pattern='^[0-9a-zA-Z][0-9a-zA-Z\-_]*$', 
-        default=None
         )
 
 

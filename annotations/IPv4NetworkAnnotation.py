@@ -9,9 +9,9 @@ def ipv4_network_validator(ip_network: str) -> str:
     try:
         network_address = IPv4Network(ip_network)
     except AddressValueError as e:
-        raise(e)
+        raise ValueError(f"Invalid IPv4 address: {ip_network}") from e
     except NetmaskValueError as e:
-        raise(e)
+        raise ValueError(f"Invalid IPv4 netmask: {ip_network}") from e
     else:
         return str(network_address)
 

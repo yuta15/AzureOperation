@@ -1,0 +1,94 @@
+{
+    "resource_group": [
+        {
+            "resource_group_name": "test-rg",
+            "location": "japaneast",
+            "tags": {"name": "test"}
+        }
+    ],
+    "virtual_network": [
+        {
+            "resource_group_name": "test-rg",
+            "location": "japaneast",
+            "tags": {"name": "test"},
+            "virtual_network_name": "vnet1",
+            "address_prefixes": [
+                "10.0.0.0/16",
+                "192.168.1.0/24"
+            ],
+            "dns_servers": ["8.8.8.8"],
+            "subnets": [
+                {
+                    "name": "subnet1",
+                    "address_prefix": "10.0.0.0/24"
+                }
+            ]
+        }
+    ],
+    "network_security_group": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tags": "",
+            "network_security_group_name": "",
+            "security_rules": [
+                {
+                    "name": "test-1",
+                    "priority": 100,
+                    "direction": "Inbound",
+                    "protocol": "Tcp",
+                    "access": "Allow",
+                    "description": "test1 description Yeah",
+                    "source_address_prefix": "192.168.1.1",
+                    "source_address_prefixes": [],
+                    "destination_address_prefix": "*",
+                    "destination_address_prefixes": [],
+                    "source_port_range": "*",
+                    "source_port_ranges": [],
+                    "destination_port_range": "443",
+                    "destination_port_ranges": []
+                }
+            ]
+        }
+    ],
+    "route_table": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tags": "",
+            "route_table_name": "",
+            "routes": [
+                {
+                    "name": "",
+                    "address_prefix": "",
+                    "next_hop_type": "",
+                    "next_hop_ip_address": ""
+                }
+            ]
+        }
+    ],
+    "storage_account": [
+        {
+            "resource_group_name": "",
+            "location": "",
+            "tags": "",
+            "storage_account_name": "",
+            "sku": "",
+            "access_tier": "",
+            "public_network_access": "",
+            "network_rule_set": {
+                "allow_vnet_name": [],
+                "allow_ip": []
+            },
+            "allow_blob_public_access": "",
+            "enable_https_traffic_only": "",
+            "minimum_tls_version": ""
+        }
+    ],
+    "virtual_machine": [
+        {
+
+        }
+    ],
+    "private_link": [{}]
+}

@@ -2,7 +2,8 @@ from typing import List
 from pydantic import Field
 
 from annotations.IPv4AddressAnnotation import IPv4AddressAnnotation
-from annotations.IPv4NetworkAnnotation import IPv4NetworkAnnotation
+from annotations.SubnetPrefixAnnotation import Prefix29Annotation
+
 from models.resource.ResourceGroupModel import ResourceGroupModel
 from models.network.SubnetModel import SubnetModel
 
@@ -20,7 +21,7 @@ class VirtualNetworkModel(ResourceGroupModel):
         subnets: List[SubnetModel] | None = None
     """
     virtual_network_name: str = Field(min_length=3, max_length=80, pattern='^[a-zA-Z0-9][a-zA-Z0-9\-_\.]*[a-zA-Z0-9\-_]$')
-    address_prefixes: list[IPv4NetworkAnnotation]
+    address_prefixes: list[Prefix29Annotation]
     dns_servers: List[IPv4AddressAnnotation] | None = None
     subnets: List[SubnetModel] | None = None
 
