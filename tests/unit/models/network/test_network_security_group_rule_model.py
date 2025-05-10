@@ -16,7 +16,6 @@ def test_nsg_success(load_test_input_data):
     assert nsg_rule_params.direction == nsg_rule['direction']
     assert nsg_rule_params.protocol == nsg_rule['protocol']
     assert nsg_rule_params.description == nsg_rule['description']
-    assert nsg_rule_params.description == nsg_rule['description']
     # port、addressのテストは別途実施
 
 

@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field, field_validator
 from annotations.IPv4NetworkOrAddressAnnotaion import IPv4NetworkOrAddressAnnotation
 from annotations.PortAnnotation import PortAnnotation
 
+
 class NetworkSecurityGroupRuleModel(BaseModel):
     """
     Attributes

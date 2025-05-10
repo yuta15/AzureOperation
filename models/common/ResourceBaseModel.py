@@ -17,7 +17,7 @@ class ResourceBaseModel(BaseModel):
             japan east -> japaneast
             japan-east -> japaneast
             japan_east -> japaneast
-            JPANAEAST -> japaneast
+            JPANAESAT -> japaneast
         raises: 
             ValueError()
         return:

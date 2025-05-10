@@ -5,6 +5,7 @@ from pydantic import Field
 from typing import Literal
 from azure.identity import DefaultAzureCredential
 
+
 class Setting(BaseSettings):
     """
     環境設定用クラス
