@@ -19,7 +19,7 @@ def datetime_validator(datetime_str: str) -> str:
     
     Args:
         datetime_str: str
-            validation済みのdatetime_strデータ
+            未validationのdatetime_strデータ
     Returns:
         valied_datetime :datetime
     Raises:

@@ -1,13 +1,12 @@
 from enum import Enum
 
-from typing import Annotated
+from typing import Annotated, Dict
 from pydantic import PlainValidator
 
 
 class SkuType(str, Enum):
     """
     SKUの種類を定義するEnumクラス
-    
     """
     STANDARD_LRS = "Standard_LRS"
     STANDARD_GRS = "Standard_GRS"
@@ -25,7 +24,7 @@ class SkuType(str, Enum):
     PREMIUMV2_ZRS = "PremiumV2_ZRS"
 
 
-def storage_sku_validator(sku: str) -> str:
+def storage_sku_validator(sku: str) -> Dict:
     """
     StorageAccountのskuのバリデーション用関数。
     受け取った文字列がSkuTypeに含まれるか確認。
@@ -43,12 +42,23 @@ def storage_sku_validator(sku: str) -> str:
     sku = sku.upper()
     if '-' in sku:
         sku = sku.replace('-', '_')
-    if sku in SkuType._member_names_:
-        return SkuType[sku].value
-    else:
+    if sku not in SkuType._member_names_:
+        # skuがSkuTypeに存在しない場合の処理
         raise ValueError(f"""
                          {sku}は不正な値です。次のリストから選択してください。
                          {SkuType._member_names_}
                          """)
 
-StorageSkuAnnotation = Annotated[str, PlainValidator(storage_sku_validator)]
+    if 'PREMIUM' in sku:
+        return {
+            'name': SkuType[sku].value,
+            'tier': 'Premium'
+        }
+    else:
+        return {
+            'name': SkuType[sku].value,
+            'tier': 'Standard'
+        }
+        
+
+StorageSkuAnnotation = Annotated[Dict['str', 'str'], PlainValidator(storage_sku_validator)]

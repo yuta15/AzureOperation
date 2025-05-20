@@ -1,0 +1,79 @@
+{
+    "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+    },
+    "kind": "StorageV2",
+    "id": "/subscriptions/6fc8922b-32f6-4ca5-8839-f7a018f3614c/resourceGroups/stgacc/providers/Microsoft.Storage/storageAccounts/sadfasdfasdf23",
+    "name": "sadfasdfasdf23",
+    "type": "Microsoft.Storage/storageAccounts",
+    "location": "japaneast",
+    "tags": {},
+    "properties": {
+        "dnsEndpointType": "Standard",
+        "defaultToOAuthAuthentication": false,
+        "publicNetworkAccess": "Enabled",
+        "keyCreationTime": {
+            "key1": "2025-05-12T03:22:51.3671391Z",
+            "key2": "2025-05-12T03:22:51.3671391Z"
+        },
+        "allowCrossTenantReplication": false,
+        "privateEndpointConnections": [],
+        "minimumTlsVersion": "TLS1_2",
+        "allowBlobPublicAccess": true,
+        "allowSharedKeyAccess": true,
+        "largeFileSharesState": "Enabled",
+        "networkAcls": {
+            "ipv6Rules": [],
+            "bypass": "AzureServices",
+            "virtualNetworkRules": [],
+            "ipRules": [
+                {
+                    "value": "182.170.165.167",
+                    "action": "Allow"
+                }
+            ],
+            "defaultAction": "Deny"
+        },
+        "supportsHttpsTrafficOnly": true,
+        "encryption": {
+            "requireInfrastructureEncryption": false,
+            "services": {
+                "file": {
+                    "keyType": "Account",
+                    "enabled": true,
+                    "lastEnabledTime": "2025-05-12T03:22:51.3827628Z"
+                },
+                "table": {
+                    "keyType": "Account",
+                    "enabled": true,
+                    "lastEnabledTime": "2025-05-12T03:22:51.3827628Z"
+                },
+                "queue": {
+                    "keyType": "Account",
+                    "enabled": true,
+                    "lastEnabledTime": "2025-05-12T03:22:51.3827628Z"
+                },
+                "blob": {
+                    "keyType": "Account",
+                    "enabled": true,
+                    "lastEnabledTime": "2025-05-12T03:22:51.3827628Z"
+                }
+            },
+            "keySource": "Microsoft.Storage"
+        },
+        "accessTier": "Hot",
+        "provisioningState": "Succeeded",
+        "creationTime": "2025-05-12T03:22:51.2890639Z",
+        "primaryEndpoints": {
+            "dfs": "https://sadfasdfasdf23.dfs.core.windows.net/",
+            "web": "https://sadfasdfasdf23.z11.web.core.windows.net/",
+            "blob": "https://sadfasdfasdf23.blob.core.windows.net/",
+            "queue": "https://sadfasdfasdf23.queue.core.windows.net/",
+            "table": "https://sadfasdfasdf23.table.core.windows.net/",
+            "file": "https://sadfasdfasdf23.file.core.windows.net/"
+        },
+        "primaryLocation": "japaneast",
+        "statusOfPrimary": "available"
+    }
+}
