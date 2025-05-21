@@ -4,7 +4,7 @@ import os
 import pytest
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def load_test_input_data():
     """
     モデル化に使用するデータを読み込む関数

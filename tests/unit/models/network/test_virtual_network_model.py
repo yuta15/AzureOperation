@@ -1,9 +1,11 @@
-import pytest
-from ipaddress import AddressValueError, NetmaskValueError
+import copy
 
+import pytest
 from pydantic import ValidationError
+from azure.mgmt.network.models import VirtualNetwork
 
 from models.network.VirtualNetworkModel import VirtualNetworkModel
+from models.network.VirtualNetworkModel import SubnetModel
 
 
 def test_virtual_network_model_success(load_test_input_data):
@@ -13,7 +15,9 @@ def test_virtual_network_model_success(load_test_input_data):
     外部データからインスタンス化が可能であること、gen_params()関数のリターンが想定通りであることを確認する。
     """
     # 最初のデータのみ使用
-    test_data = load_test_input_data.get('virtual_network')[0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0])
+    print(test_data)
+
     vnet_params = VirtualNetworkModel(**test_data)
     
     # 属性の確認
@@ -49,6 +53,21 @@ def test_virtual_network_model_success(load_test_input_data):
     }
 
 
+def test_vnet_model_success_to_instance(load_test_input_data):
+    """
+    vnetの値をVirtualNetworkをインスタンス化させて問題なくインスタンス化できることを確認する。
+    """
+    # 最初のデータのみ使用
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0])
+    vnet_params = VirtualNetworkModel(**test_data).gen_params()
+    instanced_vnet_params = VirtualNetwork(**vnet_params['parameters'])
+    assert test_data['tags'] == instanced_vnet_params.tags
+    assert test_data['location'] == instanced_vnet_params.location
+    assert {'address_prefixes': test_data['address_prefixes']} == instanced_vnet_params.address_space
+    assert {'dns_servers': test_data['dns_servers']} == instanced_vnet_params.dhcp_options
+    assert test_data['subnets'] == instanced_vnet_params.subnets
+
+
 @pytest.mark.parametrize(
     'virtual_network_name',
     [
@@ -66,7 +85,7 @@ def test_virtual_network_model_failuere_by_vnet_name(load_test_input_data, virtu
     そのほか
     """
     # 最初の要素のみ使用
-    test_data = load_test_input_data.get('virtual_network')[0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0])
     test_data['virtual_network_name'] = virtual_network_name
     with pytest.raises(ValidationError) as e:
         VirtualNetworkModel(**test_data)
@@ -90,7 +109,7 @@ def test_virtual_network_model_failuere_by_address_space(load_test_input_data, a
     
     """
     # 最初の要素のみ使用
-    test_data = load_test_input_data.get('virtual_network')[0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0])
     test_data['address_prefixes'] = address_prefixes
     with pytest.raises(ValidationError) as e:
         VirtualNetworkModel(**test_data)
@@ -111,7 +130,7 @@ def test_virtual_network_model_failuere_by_dns_servers(load_test_input_data, dns
     
     """
     # 最初の要素のみ使用
-    test_data = load_test_input_data.get('virtual_network')[0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0])
     test_data['dns_servers'] = dns_servers
     with pytest.raises(ValidationError):
         VirtualNetworkModel(**test_data)

@@ -6,11 +6,15 @@ from annotations.IPv4NetworkOrAddressAnnotaion import IPv4NetworkOrAddressAnnota
 class NetworkRuleSetModel(BaseModel):
     """
     StorageAccountのNetwowrkアクセスを指定するためのクラス
-    TODO:
-        - bypass: upper()を実行して大文字小文字関係無く指定可能にする
+    Attributes:
+        default_action: Literal['Allow', 'Deny'] = 'Allow'
+        bypass: Literal['Logging', 'Metrics', 'AzureServices', None] = 'AzureServices'
+        resource_access_rules: List[Dict] | None = None
+        vnet_ids: List[str] | None = None
+        ip_rules: List[IPv4NetworkOrAddressAnnotation] | None = None
     """
     default_action: Literal['Allow', 'Deny'] = 'Allow'
-    bypass: Literal[None, 'Logging', 'Metrics', 'AzureServices'] = 'AzureServices'
+    bypass: Literal['Logging', 'Metrics', 'AzureServices', None] = 'AzureServices'
     resource_access_rules: List[Dict] | None = None
     vnet_ids: List[str] | None = None
     ip_rules: List[IPv4NetworkOrAddressAnnotation] | None = None
@@ -18,29 +22,40 @@ class NetworkRuleSetModel(BaseModel):
     
     @field_validator('default_action', mode='before')
     @classmethod
-    def capitalize_string(cls, default_action: str | None) -> str:
+    def capitalize_default_action(cls, default_action: str | None) -> str:
         """
-        文字列をCamelCaseへ変換するバリデータ
-        :param default_action: 文字列
-        :return: CamelCaseへ変換された文字列
+        Allow, Deny, allow, denyを受けれるようにする。
         """
         if default_action is None:
+            return 'Allow'
+        return default_action.capitalize()
+    
+    
+    @field_validator('bypass', mode='before')
+    @classmethod
+    def format_bypass(cls, bypass: str | None) -> Literal[None, 'Logging', 'Metrics', 'AzureServices']:
+        """
+        受け取った文字列をCamelCaseへ整形する関数。
+        指定外の値を受け取った場合にはValueErrorとする。
+        
+        """
+        if bypass is None:
             return None
         
-        to_camel_case_str = ['logging', 'metrics', 'azureservices', None]
-        lower_default_action = default_action.lower()
-        if ' ' in lower_default_action:
+        lower_accept_actions = ['logging', 'metrics', 'azureservices']
+        lower_bypass = bypass.lower()
+        if ' ' in lower_bypass:
             # ' 'を削除
-            lower_default_action = lower_default_action.replace(' ', '')
-        if lower_default_action not in to_camel_case_str:
+            lower_bypass = lower_bypass.replace(' ', '')
+        if lower_bypass not in lower_accept_actions:
             # Noneでもto_camel_case_str内の値でもない場合はデフォルト値を使用する
-            return 'AzureServices'
+            raise ValueError('bypassには[None, Logging, Metrics, AzureServices]が入力可能です。')
         # CamelCaseの文字列をreturn
-        if lower_default_action is 'logging':
+        if lower_bypass == 'logging':
             return 'Logging'
-        elif lower_default_action is 'metrics':
+        elif lower_bypass == 'metrics':
             return 'Metrics'
-        elif lower_default_action is 'azureservices':
+        elif lower_bypass == 'azureservices':
             return 'AzureServices'
 
 
@@ -58,7 +73,7 @@ class NetworkRuleSetModel(BaseModel):
             tenant_id = resource_access_rule.get('tenant_id', None)
             resource_id = resource_access_rule.get('resource_id', None)
             keys = resource_access_rule.keys()
-            if tenant_id is None or resource_id is None or len(keys) == 2:
+            if tenant_id is None or resource_id is None or len(keys) != 2:
                 raise ValueError(f"""
                                 ValueError:{resource_access_rules}は不正な値です。
                                 resource_access_rulesにはtenant_id, resource_idのみを含むDictのリストを代入してください。
@@ -112,7 +127,6 @@ class NetworkRuleSetModel(BaseModel):
     def gen_params(self) -> dict:
         """
         Network RuleのDictを生成する
-        TODO: 未作成
         """
         return {
             'default_action': self.default_action,

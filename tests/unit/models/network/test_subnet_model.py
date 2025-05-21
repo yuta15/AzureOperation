@@ -1,12 +1,13 @@
-import pytest
+import copy
 
+import pytest
 from pydantic import ValidationError
 
 from models.network.SubnetModel import SubnetModel
 
 
 def test_subnet_model_success(load_test_input_data):
-    test_data = load_test_input_data['virtual_network'][0]['subnets'][0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0]['subnets'][0])
     subnet = SubnetModel(**test_data)
     assert subnet.name == test_data['name']
     assert subnet.address_prefix == test_data['address_prefix']
@@ -20,7 +21,7 @@ def test_subnet_model_success(load_test_input_data):
     ]
 )
 def test_subnet_model_failure_by_name(load_test_input_data, name):
-    test_data = load_test_input_data['virtual_network'][0]['subnets'][0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0]['subnets'][0])
     test_data['name'] = name
     with pytest.raises(ValidationError):
         SubnetModel(**test_data)
@@ -34,7 +35,7 @@ def test_subnet_model_failure_by_name(load_test_input_data, name):
     ]
 )
 def test_subnet_model_failure_by_name(load_test_input_data, address_prefix):
-    test_data = load_test_input_data['virtual_network'][0]['subnets'][0]
+    test_data = copy.deepcopy(load_test_input_data['virtual_network'][0]['subnets'][0])
     test_data['address_prefix'] = address_prefix
     with pytest.raises(ValidationError):
         SubnetModel(**test_data)

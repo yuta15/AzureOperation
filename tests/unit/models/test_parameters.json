@@ -77,8 +77,22 @@
             "access_tier": "",
             "public_network_access": "",
             "network_rule_set": {
-                "allow_vnet_name": [],
-                "allow_ip": []
+                "default_action": "Allow",
+                "bypass": "AzureServices",
+                "resource_access_rules": [
+                    {
+                        "tenant_id": "5cba9944-8127-43a3-8c5d-8c69c07f551d",
+                        "resource_id": "/subscriptions/5cba9944-8127-43a3-8c5d-8c69c07f551d/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/test-vm"
+                    }
+                ],
+                "vnet_ids": [
+                    "/subscriptions/5cba9944-8127-43a3-8c5d-8c69c07f551d/resourceGroups/my-resource-group/providers/Microsoft.Network/virtualNetworks/my-vnet",
+                    "/subscriptions/5cba9944-8127-43a3-8c5d-8c69c07f551d/resourceGroups/my-resource-group/providers/Microsoft.Network/virtualNetworks/my-vnet2"
+                ],
+                "ip_rules": [
+                    "10.0.0.0/16",
+                    "192.168.1.0/24"
+                ]
             },
             "allow_blob_public_access": "",
             "enable_https_traffic_only": "",

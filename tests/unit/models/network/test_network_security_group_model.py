@@ -1,3 +1,5 @@
+
+from azure.mgmt.network.models import NetworkSecurityGroup
 import pytest
 
 from models.network.NetworkSecurityGroupModel import NetworkSecurityGroupModel
@@ -25,7 +27,15 @@ def test_nsg_model_success(load_test_input_data):
             'security_rules': test_data['security_rules']
         }
     }
-    
+
+
+def test_nsg_model_to_instance(load_test_input_data):
+    """
+    NSGモデルを使用してNetworkSecurityGroupへインスタンス化が可能かを確認する。
+    """
+    test_data = load_test_input_data['network_security_group'][0]
+    nsg_model = NetworkSecurityGroupModel(**test_data).gen_params()
+    print(NetworkSecurityGroup(**nsg_model['parameters']))
 
 
 @pytest.mark.parametrize(

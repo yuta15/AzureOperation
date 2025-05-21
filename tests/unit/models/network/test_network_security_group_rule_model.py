@@ -1,4 +1,4 @@
-from ipaddress import IPv4Network
+import copy
 
 import pytest
 
@@ -9,7 +9,7 @@ def test_nsg_success(load_test_input_data):
     """
     NSGルールモデルの正常系テスト
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
     assert nsg_rule_params.name == nsg_rule['name']
     assert nsg_rule_params.priority == nsg_rule['priority']
@@ -35,7 +35,7 @@ def test_nsg_rule_success_check_protocol(load_test_input_data, protocol):
     NSGモデルの正常系テスト
     protocolが正常にcapitalizeされvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['protocol'] = protocol
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
     assert nsg_rule_params.protocol == protocol.capitalize()
@@ -53,7 +53,7 @@ def test_nsg_rule_success_check_access(load_test_input_data, access):
     NSGモデルの正常系テスト
     accessが正常にcapitalizeされvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['access'] = access
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
     assert nsg_rule_params.access == access.capitalize()
@@ -71,7 +71,7 @@ def test_nsg_rule_success_check_direction(load_test_input_data, direction):
     NSGモデルの正常系テスト
     directionが正常にcapitalizeされvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['direction'] = direction
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
     assert nsg_rule_params.direction == direction.capitalize()
@@ -91,7 +91,7 @@ def test_nsg_rule_success_check_address(load_test_input_data, source_address_pre
     NSGモデルの正常系テスト
     source_address_prefix', 'destination_address_prefixが正常にvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['source_address_prefix'] = source_address_prefix
     nsg_rule['destination_address_prefix'] = destination_address_prefix
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
@@ -119,7 +119,7 @@ def test_nsg_rule_success_check_addresses(load_test_input_data, source_address_p
     NSGモデルの正常系テスト
     source/dst_addressesが正常にvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['source_address_prefixes'] = source_address_prefixes
     nsg_rule['destination_address_prefixes'] = destination_address_prefixes
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
@@ -142,7 +142,7 @@ def test_nsg_rule_success_check_port(load_test_input_data, source_port_range, de
     NSGモデルの正常系テスト
     source/dst_port_rangeが正常にvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['source_port_range'] = source_port_range
     nsg_rule['destination_port_range'] = destination_port_range
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)
@@ -173,7 +173,7 @@ def test_nsg_rule_success_check_ports(load_test_input_data, source_port_ranges, 
     NSGモデルの正常系テスト
     source/dst_port_rangeが正常にvalidationされるかを確認する
     """
-    nsg_rule = load_test_input_data['network_security_group'][0]['security_rules'][0]
+    nsg_rule = copy.deepcopy(load_test_input_data['network_security_group'][0]['security_rules'][0])
     nsg_rule['source_port_ranges'] = source_port_ranges
     nsg_rule['destination_port_ranges'] = destination_port_ranges
     nsg_rule_params = NetworkSecurityGroupRuleModel(**nsg_rule)

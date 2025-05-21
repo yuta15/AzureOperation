@@ -1,5 +1,6 @@
 import pytest
 from pydantic import ValidationError
+from azure.mgmt.resource.resources.models import ResourceGroup
 
 from models.resource.ResourceGroupModel import ResourceGroupModel
 
@@ -24,6 +25,20 @@ def test_resource_group_model_success(load_test_input_data):
             'tags': test_data.get('tags'),
         }
     }
+
+
+def test_resource_group_model_success_to_instance(load_test_input_data):
+    """
+    test_resource_group_modelのテスト関数
+    ResourceGroupのインスタンスが作成可能かを確認する。
+    name以外は設定される想定
+    """
+    # 最初のデータのみ使用
+    test_data = load_test_input_data['resource_group'][0]
+    rg_params = ResourceGroupModel(**test_data).gen_params()
+    rg_instanced_parmas = ResourceGroup(**rg_params['parameters'])
+    assert test_data['location'] == rg_instanced_parmas.location
+    assert test_data['tags'] == rg_instanced_parmas.tags
 
 
 @pytest.mark.parametrize(
